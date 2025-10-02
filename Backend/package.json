@@ -1,0 +1,16 @@
+{
+  "name": "meet-play-backend",
+  "version": "1.0.0",
+  "description": "backend para el projecto Mett&Play",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "koa": "^3.0.1"
+  }
+}
