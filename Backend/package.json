@@ -12,6 +12,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@koa/bodyparser": "^6.0.0",
+    "@koa/router": "^14.0.0",
     "koa": "^3.0.1"
   },
   "devDependencies": {
