@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:alpine
+    restart: always
+    user: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: meet_play_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+      start_interval: 5s
+
+  backend:
+    build: 
+      context: ./Backend
+      target: dev
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    volumes:
+      - ./Backend/src:/app/src
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: 
+      context: ./Frontend
+      target: dev
+    ports:
+      - "5173:5173"
+    environment:
+      - PORT=5173
+    volumes:
+      - ./Frontend/src:/app/src
+      - ./Frontend/public:/app/public
+      - ./Frontend/index.html:/app/index.html
+    stdin_open: true
+    depends_on:
+      - backend
+
+
+volumes:
+  db_data:

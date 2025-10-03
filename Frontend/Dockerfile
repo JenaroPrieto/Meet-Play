@@ -19,9 +19,9 @@ WORKDIR /app
 COPY --from=dev-deps /app ./
 #copia otros archivos del host
 COPY vite.config.js ./
-COPY index.html ./
 # volumen para hot reloading
 VOLUME /app/src
 VOLUME /app/public
+VOLUME /app/index.html
 # Default command
 CMD ["npm", "run", "dev"]
