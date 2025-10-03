@@ -1,8 +1,11 @@
 # Meet&Play Backend
 
-# tecnologias
+# Tecnologias
 
+- nodejs
 - Koa.js
+- Koa-router
+- sequelize
 
 # Instruciones de uso
 
