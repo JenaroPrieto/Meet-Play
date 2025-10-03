@@ -1,0 +1,8 @@
+# Instalacion modulos
+node_modules
+
+# enviroment
+.env
+
+# git
+.gitignore

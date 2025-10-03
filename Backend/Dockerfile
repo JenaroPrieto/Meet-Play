@@ -14,10 +14,12 @@ ENV NODE_ENV=development
 ENV PORT=3000
 # expone puerto que se va a usar
 EXPOSE ${PORT}
-# copia los modulos y package.json
 WORKDIR /app
-COPY --from=dev-deps /app ./
+# Copia archivos del host
+COPY . .
+# copia los modulo
+COPY --from=dev-deps /app/node_modules ./node_modules
 # volumen para hot reloading
 VOLUME /app/src
 # Default command
-CMD ["npm", "run", "dev"]
+CMD ["sh", "./scripts/dev-migrate-run.sh"]
