@@ -1,3 +1,20 @@
+# Meet&Play Frontend
+
+## Tecnologias
+
+- React
+- React-routes
+- vite
+
+## Instruciones de uso
+
+uso local (puerto 5173):
+
+    $ npm install
+    $ npm run dev
+
+---
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
