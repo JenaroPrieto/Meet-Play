@@ -17,11 +17,11 @@ Este cuenta con fast reload tanto en el backend y el frontend.
 
 ## Backend
 
-[./Backend/README.md#Tecnologias]
+[Readme en Backend](./Backend/README.md#Tecnologias)
 
 ## Frontend
 
-[./Frontend/README.md#Tecnologias]
+[Readme en Frontend](./Frontend/README.md#Tecnologias)
 
 ## Base de Datos
 
@@ -31,11 +31,11 @@ Este cuenta con fast reload tanto en el backend y el frontend.
 
 ## Backend
 
-[./Backend/README.md]
+[Readme en Backend](./Backend/README.md)
 
 ## Frontend
 
-[./Frontend/README.md]
+[Readme en Frontend](./Frontend/README.md)
 
 ## Base de datos
 
