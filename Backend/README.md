@@ -16,10 +16,6 @@ uso local (puerto 3000):
 
 ## Docs
 
-[] listar partidos
-[] crear partido
-[] unirse partido
-
 ### usuario
 
 #### nuevo usuario
@@ -41,7 +37,7 @@ crea un nuevo usuario y retorn su información
         nombre: <nombre>,
     }
 
-#### retorna información de un usuario
+#### buscar usuario
 
     GET /usuario/:id
     GET /usuario/buscar/:nombre
@@ -66,11 +62,12 @@ retorna una lista de partidos donde participa
     {
         cantidad_partidos: <numero>
         partidos: [...{
+            id: <number>,
             creador_id: <number>,
             nombre: <string>,
             deporte: <string>,
             hora_inicio: <datetime>,
-            direccion: <string>,
+            direccion: <string>|null,
             ubicacion: { lat: <number>, lng: <number>},
         }...]
     }
@@ -88,6 +85,7 @@ retorna una lista de partidos
     {
         cantidad_partidos: <numero>
         partidos: [...{
+            id: <number>,
             creador_id: <number>,
             nombre: <string>,
             deporte: <string>,
@@ -107,6 +105,7 @@ si existe, retorna la información de ese partido
 ##### response body
 
     {
+        id: <number>,
         creador_id: <number>,
         nombre: <string>,
         deporte: <string>,
@@ -135,6 +134,7 @@ crea un partido y retorna su información
 ##### response body
 
     {
+        id: <number>,
         creador_id: <number>,
         nombre: <string>,
         deporte: <string>,
