@@ -1,9 +1,9 @@
 # Meet-Play
 Proyecto Semestral del curso GPTI
 
-# Instruciones de uso
+## Instruciones de uso
 
-## desarrollo
+### desarrollo
 
 Requisitos: Docker
 
@@ -13,40 +13,40 @@ Se utiliza el siguiente comando para iniciar backend, frontend, postgres:
 
 Este cuenta con fast reload tanto en el backend y el frontend.
 
-# Tecnologias
+## Tecnologias
 
-## Backend
+### Backend
 
 [Readme en Backend](./Backend/README.md#Tecnologias)
 
-## Frontend
+### Frontend
 
 [Readme en Frontend](./Frontend/README.md#Tecnologias)
 
-## Base de Datos
+### Base de Datos
 
 - postgres
 
-# Docs
+## Docs
 
-## Backend
+### Backend
 
 [Readme en Backend](./Backend/README.md)
 
-## Frontend
+### Frontend
 
 [Readme en Frontend](./Frontend/README.md)
 
-## Base de datos
+### Base de datos
 
-### usuarios
-
-ToDo
-
-### Partidos
+#### usuarios
 
 ToDo
 
-### ParticipaEn
+#### Partidos
+
+ToDo
+
+#### ParticipaEn
 
 ToDo

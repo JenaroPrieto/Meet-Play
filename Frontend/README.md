@@ -1,12 +1,12 @@
 # Meet&Play Frontend
 
-# Tecnologias
+## Tecnologias
 
 - React
 - React-routes
 - vite
 
-# Instruciones de uso
+## Instruciones de uso
 
 uso local (puerto 5173):
 

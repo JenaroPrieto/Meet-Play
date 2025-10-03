@@ -1,13 +1,13 @@
 # Meet&Play Backend
 
-# Tecnologias
+## Tecnologias
 
 - nodejs
 - Koa.js
 - Koa-router
 - sequelize
 
-# Instruciones de uso
+## Instruciones de uso
 
 uso local (puerto 3000):
 
