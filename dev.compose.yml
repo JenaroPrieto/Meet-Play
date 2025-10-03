@@ -27,6 +27,12 @@ services:
       - "3000:3000"
     environment:
       - PORT=3000
+      - DB_USER=postgres
+      - DB_PASS=1234
+      - DB_NAME=meet_play_db
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DIALECT=postgres
     volumes:
       - ./Backend/src:/app/src
     depends_on:
