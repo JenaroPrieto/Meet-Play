@@ -13,3 +13,151 @@ uso local (puerto 3000):
 
     $ npm install
     $ npm start
+
+## Docs
+
+[] listar partidos
+[] crear partido
+[] unirse partido
+
+### usuario
+
+#### nuevo usuario
+
+    POST /usuario/crear
+
+crea un nuevo usuario y retorn su información
+
+##### request body
+    
+    {
+        nombre: <string>,
+    }
+
+##### response body
+
+    {
+        id: <numero>,
+        nombre: <nombre>,
+    }
+
+#### retorna información de un usuario
+
+    GET /usuario/:id
+    GET /usuario/buscar/:nombre
+
+retorna la información del usuario
+
+##### response body
+
+    {
+        id: <numero>,
+        nombre: <nombre>,
+    }
+
+#### partidos en los que participa
+
+    GET /usuario/:id/partido
+
+retorna una lista de partidos donde participa
+
+##### response body
+
+    {
+        cantidad_partidos: <numero>
+        partidos: [...{
+            creador_id: <number>,
+            nombre: <string>,
+            deporte: <string>,
+            hora_inicio: <datetime>,
+            direccion: <string>,
+            ubicacion: { lat: <number>, lng: <number>},
+        }...]
+    }
+
+### partido
+
+#### listar partidos
+
+    GET /partido
+
+retorna una lista de partidos
+
+##### response body
+
+    {
+        cantidad_partidos: <numero>
+        partidos: [...{
+            creador_id: <number>,
+            nombre: <string>,
+            deporte: <string>,
+            hora_inicio: <datetime>,
+            direccion: <string>,
+            ubicacion: { lat: <number>, lng: <number>},
+        }...]
+    }
+
+
+#### info de partido
+
+    GET /partido/:id
+
+si existe, retorna la información de ese partido
+
+##### response body
+
+    {
+        creador_id: <number>,
+        nombre: <string>,
+        deporte: <string>,
+        hora_inicio: <datetime>,
+        direccion: <string>,
+        ubicacion: { lat: <number>, lng: <number>},
+    }
+
+#### Crear partido
+
+    POST /partido/crear
+
+crea un partido y retorna su información
+
+##### request body
+
+    {
+        usuario_id: <number>,
+        nombre: <string>,
+        deporte: <string>,
+        hora_inicio: <datetime>,
+        direccion: <string>,
+        ubicacion: { lat: <number>, lng: <number>},
+    }
+
+##### response body
+
+    {
+        creador_id: <number>,
+        nombre: <string>,
+        deporte: <string>,
+        hora_inicio: <datetime>,
+        direccion: <string>,
+        ubicacion: { lat: <number>, lng: <number>},
+    }
+
+
+#### unirse a partido
+
+    POST /partido/:id/unirse
+
+Ingresa al usuario para ser parte del partido
+
+##### request body
+
+    {
+        usuario_id: <number>,
+    }
+
+##### request body
+
+    {
+        exito: true|false
+    }
