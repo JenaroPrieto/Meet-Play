@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       Partido.belongsToMany(models.Usuario, {
         through: models.ParticipaEn,
         as: 'participantes',
-        foreignkey: 'partido_id',
-        otherKey: 'usuario_id',
+        foreignKey: 'partido_id',
+        otherKey: 'usuario_id'
       });
     }
   }

@@ -13,13 +13,14 @@ module.exports = (sequelize, DataTypes) => {
       // Partidos Creados
       Usuario.hasMany(models.Partido, {
         as: 'partidosCreados',
+        foreignKey: 'creador_id',
       });
       // partidos
       Usuario.belongsToMany(models.Partido, {
         through: models.ParticipaEn,
         as: 'partidos',
-        foreignkey: 'usuario_id',
-        otherKey: 'partido_id',
+        foreignKey: 'usuario_id',
+        otherKey: 'partido_id'
       });
     }
   }
