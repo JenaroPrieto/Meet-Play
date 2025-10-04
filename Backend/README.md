@@ -9,10 +9,35 @@
 
 ## Instruciones de uso
 
+### ENV
+
+- PORT          (default: 3000)
+- DB_USER
+- DB_PASS
+- DB_NAME
+- DB_HOST       (default: localhost
+- DB_PORT       (default: 5432)
+- DB_DIALECT    (default postgres)
+
+### comandos
+
 uso local (puerto 3000):
 
-    $ npm install
-    $ npm start
+obtiene depedencias
+
+    npm install 
+
+crea la base de datos
+
+    npx sequelize-cli db:create
+
+migra la base de datos
+
+    npm migrate
+
+inicia el servicio en modo desarrollo
+
+    npm run dev
 
 ## Docs
 
