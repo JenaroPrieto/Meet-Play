@@ -1,6 +1,11 @@
 const Router = require('@koa/router');
 const router = new Router();
 
+const { usuario_crear } = require('./controllers/crear.js');
+
+const { validate_content_type } = require('../middleware/validate-content-type');
+const validate_json = validate_content_type("application/json");
+
 router.get('/:id', ctx => {
   const id = Number(ctx.params.id);
   ctx.body = {
@@ -17,13 +22,7 @@ router.get('/buscar/:nombre', ctx => {
   };
 });
 
-router.post('/crear', ctx => {
-  const name = ctx.request.body.nombre;
-  ctx.body = {
-    id: 42,
-    nombre: name,
-  };
-});
+router.post('/crear', validate_json, usuario_crear);
 
 router.get('/:id/partido', ctx => {
   const id = Number(ctx.params.id);
