@@ -1,64 +1,24 @@
 const Router = require('@koa/router');
 const router = new Router();
 
-router.get('/', ctx => {
-  ctx.body = {
-    cantidad_partidos: 1,
-    partidos: [
-      {
-        creador_id: 42,
-        id: 33,
-        nombre: 'pichanga',
-        deporte: 'futbol',
-        hora_inicio: Date.now(),
-        direccion: 'Donde el diablo perdio el poncho',
-        ubicacion: { lat: -33.5, lng: -70.6 },
-      },
-  ],
-  };
-});
+// Controllers
+const { partido_crear } = require('./controllers/crear');
+const {
+  partido_all,
+  partido_buscar_id
+} = require('./controllers/buscar');
+const { partido_unirse } = require('./controllers/participante');
 
-router.get('/:id', ctx => {
-  const id = Number(ctx.params.id);
-  ctx.body = {
-    creador_id: 42,
-    id: id,
-    nombre: 'pichanga',
-    deporte: 'futbol',
-    hora_inicio: Date.now(),
-    direccion: 'Donde el diablo perdio el poncho',
-    ubicacion: { lat: -33.5, lng: -70.6 },
-  };
-});
+// Helper Middlewares
+const { validate_content_type } = require('../middleware/validate-content-type');
+const validate_json = validate_content_type("application/json");
 
-router.post('/crear', ctx => {
-  const {
-    usuario_id,
-    nombre,
-    deporte,
-    hora_inicio,
-    direccion,
-    ubicacion
-  } = ctx.request.body;
-  ctx.body = {
-    creador_id: usuario_id,
-    id: 33,
-    nombre,
-    deporte,
-    hora_inicio,
-    direccion,
-    ubicacion,
-  };
-});
+router.get('/', partido_all);
 
-router.post('/:id/unirse', ctx => {
-  const partido_id = Number(ctx.params.id);
-  const usuario_id = Number(ctx.request.body.usuario_id);
-  let success = true;
-  if ( !partido_id || !usuario_id ){
-    success = false;
-  }
-  ctx.body = { exito: success}
-});
+router.get('/:id', partido_buscar_id);
+
+router.post('/crear', validate_json, partido_crear);
+
+router.post('/:id/unirse', validate_json, partido_unirse);
 
 module.exports = router;
