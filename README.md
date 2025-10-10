@@ -13,9 +13,11 @@ Se utiliza el siguiente comando para iniciar backend, frontend, postgres:
 
 Este cuenta con fast reload tanto en el backend y el frontend.
 
-*!# importante:* si ya existe el volumen para la base de datos 
+**!Importante:** si ya existe el volumen para la base de datos 
 no se va correr el init y posiblemente este desactualizado el schema
-de la base de datos.
+de la base de datos, para borrar el volumen puedes usar el siguiente comando:
+
+    docker compose -f dev.compose.yml down -v
 
 ## Tecnologias
 
