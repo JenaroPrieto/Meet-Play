@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class ParticipaEn extends Model {
+  class Mensaje extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,31 +11,39 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // usuario
-      ParticipaEn.belongsTo(models.Usuario, {
+      Mensaje.belongsTo(models.Usuario, {
         as: 'usuario',
         foreignKey: 'usuario_id',
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
       });
       // Partido
-      ParticipaEn.belongsTo(models.Partido, {
-        as: 'partido',
-        foreignKey: 'partido_id',
-        onDelete: 'SET NULL',
+      Mensaje.belongsTo(models.Chat, {
+        as: 'chat',
+        foreignKey: 'chat_id',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       });
     }
   }
-  ParticipaEn.init({
+  Mensaje.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
+    fecha_envio: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    contenido: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
   }, {
       sequelize,
-      modelName: 'ParticipaEn',
+      modelName: 'Mensaje',
       timestamps: false,
     });
-  return ParticipaEn;
+  return Mensaje;
 };

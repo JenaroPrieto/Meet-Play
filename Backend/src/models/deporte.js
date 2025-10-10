@@ -3,39 +3,40 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class ParticipaEn extends Model {
+  class Deporte extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // usuario
-      ParticipaEn.belongsTo(models.Usuario, {
-        as: 'usuario',
-        foreignKey: 'usuario_id',
-        onDelete: 'SET NULL',
-        onUpdate: 'CASCADE',
-      });
-      // Partido
-      ParticipaEn.belongsTo(models.Partido, {
-        as: 'partido',
-        foreignKey: 'partido_id',
+      // Partidos
+      Deporte.hasMany(models.Partido, {
+        as: 'partidos',
+        foreignKey: 'deporte_id',
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
       });
     }
   }
-  ParticipaEn.init({
+  Deporte.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-  }, {
+    nombre: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+    max_participantes: {
+      type: DataTypes.INTEGER,
+    },
+  },
+    {
       sequelize,
-      modelName: 'ParticipaEn',
+      modelName: 'Deporte',
       timestamps: false,
     });
-  return ParticipaEn;
+  return Deporte;
 };

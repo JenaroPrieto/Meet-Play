@@ -4,7 +4,7 @@ CREATE TABLE Usuario (
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     contrasena VARCHAR(255) NOT NULL,
-    fecha_registro TIMESTAMP DEFAULT NOW(),
+    fecha_registro TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     foto_perfil VARCHAR(255),
     direccion VARCHAR(255),
     latitud DECIMAL(10,7),
@@ -37,49 +37,57 @@ CREATE TYPE ESTADO_PARTIDO AS ENUM ('abierto', 'cerrado');
 -- 4. PARTIDO
 CREATE TABLE Partido (
     id SERIAL PRIMARY KEY,
-    titulo VARCHAR(100),
+    nombre VARCHAR(100) NOT NULL,
     fecha TIMESTAMP,
     estado ESTADO DEFAULT 'abierto',
-    id_creador INT,
-    id_cancha INT,
-    id_deporte INT,
-    FOREIGN KEY (id_creador) REFERENCES Usuario(id_usuario)
-        ON DELETE SET NULL,
-    FOREIGN KEY (id_cancha) REFERENCES Cancha(id_cancha)
-        ON DELETE SET NULL,
-    FOREIGN KEY (id_deporte) REFERENCES Deporte(id_deporte)
+    creador_id INT,
+    cancha_id INT,
+    deporte_id INT,
+    FOREIGN KEY (creador_id) REFERENCES Usuario(id)
         ON DELETE SET NULL
+        ON UPDATE CASCADE,
+    FOREIGN KEY (cancha_id) REFERENCES Cancha(id)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE,
+    FOREIGN KEY (deporte_id) REFERENCES Deporte(id)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
 );
 
 -- 5. CHAT
 CREATE TABLE Chat (
     id SERIAL PRIMARY KEY,
-    nombre VARCHAR(100),
-    id_partido INT,
-    FOREIGN KEY (id_partido) REFERENCES Partido(id_partido)
+    nombre VARCHAR(100) NOT NULL,
+    partido_id INT,
+    FOREIGN KEY (partido_id) REFERENCES Partido(id)
         ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 -- 6. MENSAJE
 CREATE TABLE Mensaje (
     id SERIAL PRIMARY KEY,
     fecha_envio TIMESTAMP DEFAULT NOW(),
-    mensaje TEXT NOT NULL,
-    id_usuario INT,
-    id_chat INT,
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
-        ON DELETE SET NULL,
-    FOREIGN KEY (id_chat) REFERENCES Chat(id_chat)
+    contenido TEXT NOT NULL,
+    usuario_id INT,
+    chat_id INT,
+    FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE,
+    FOREIGN KEY (chat_id) REFERENCES Chat(id)
         ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 -- 7. PARTICIPAEN
 CREATE TABLE ParticipaEn (
-    id_usuario INT,
-    id_partido INT,
-    PRIMARY KEY (id_usuario, id_partido),
-    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
-        ON DELETE SET NULL,
-    FOREIGN KEY (id_partido) REFERENCES Partido(id_partido)
+    id SERIAL PRIMARY KEY,
+    usuario_id INT,
+    partido_id INT,
+    FOREIGN KEY (usuario_id) REFERENCES Usuario(id)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE,
+    FOREIGN KEY (partido_id) REFERENCES Partido(id)
         ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
