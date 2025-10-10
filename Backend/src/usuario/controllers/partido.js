@@ -11,13 +11,13 @@ const usuario_partido = async (ctx) => {
     cantidad_partidos: partidos.length,
     partidos: partidos.map((partido) => {
       return {
-        creador_id: partido.creador_id,
         id: partido.id,
         nombre: partido.nombre,
-        deporte: partido.deporte,
-        hora_inicio: partido.hora_inicio,
-        direccion: partido.direccion,
-        ubicacion: { lat: partido.lat, lng: partido.lng },
+        fecha: partido.fecha,
+        estado: partido.estado,
+        creador_id: partido.creador_id,
+        cancha_id: partido.cancha_id,
+        deporte_id: partido.deporte_id,
       };
     }),
   }

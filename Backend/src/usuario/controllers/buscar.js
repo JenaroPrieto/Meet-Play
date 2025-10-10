@@ -5,13 +5,18 @@ const usuario_buscar_nombre = async (ctx) => {
   if (!user) {
     ctx.body = {
       id: null,
-      nombre: null,
     };
   }
   else {
     ctx.body = {
       id: user.id,
       nombre: user.nombre,
+      email: user.email,
+      fecha_registro: user.fecha_registro,
+      foto_perfil: user.foto_perfil,
+      direccion: user.direccion,
+      latitud: user.latitud,
+      longitud: user.longitud,
     };
   }
 };
@@ -23,13 +28,18 @@ const usuario_buscar_id = async (ctx) => {
   if (!user) {
     ctx.body = {
       id: null,
-      nombre: null,
     };
   }
   else {
     ctx.body = {
       id: user.id,
       nombre: user.nombre,
+      email: user.email,
+      fecha_registro: user.fecha_registro,
+      foto_perfil: user.foto_perfil,
+      direccion: user.direccion,
+      latitud: user.latitud,
+      longitud: user.longitud,
     };
   }
 };
