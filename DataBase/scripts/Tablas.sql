@@ -38,7 +38,7 @@ CREATE TYPE ESTADO_PARTIDO AS ENUM ('abierto', 'cerrado');
 CREATE TABLE Partido (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
-    fecha TIMESTAMP,
+    fecha TIMESTAMP WITH TIME ZONE,
     estado ESTADO DEFAULT 'abierto',
     creador_id INT,
     cancha_id INT,
@@ -67,7 +67,7 @@ CREATE TABLE Chat (
 -- 6. MENSAJE
 CREATE TABLE Mensaje (
     id SERIAL PRIMARY KEY,
-    fecha_envio TIMESTAMP DEFAULT NOW(),
+    fecha_envio TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     contenido TEXT NOT NULL,
     usuario_id INT,
     chat_id INT,
