@@ -27,14 +27,6 @@ obtiene depedencias
 
     npm install 
 
-crea la base de datos
-
-    npx sequelize-cli db:create
-
-migra la base de datos
-
-    npm migrate
-
 inicia el servicio en modo desarrollo
 
     npm run dev
@@ -53,6 +45,11 @@ crea un nuevo usuario y retorn su información
     
     {
         nombre: <string>,
+        email: <string>,
+        contrasena: <string>,
+        direccion: <string>,
+        latitud: <numero>,
+        longitud: <numero>
     }
 
 ##### response body
@@ -60,6 +57,12 @@ crea un nuevo usuario y retorn su información
     {
         id: <numero>,
         nombre: <nombre>,
+        email: <string>,
+        fecha_registro: <DateTime>,
+        foto_perfil: <string>,
+        direccion: <string>,
+        latitud: <numero>,
+        longitud: <numero>,
     }
 
 #### buscar usuario
@@ -72,8 +75,14 @@ retorna la información del usuario
 ##### response body
 
     {
-        id: <numero>,
-        nombre: <nombre>,
+        id: <numero> || null,
+        nombre?: <nombre>,
+        email?: <string>,
+        fecha_registro?: <DateTime>,
+        foto_perfil?: <string>,
+        direccion?: <string>,
+        latitud?: <numero>,
+        longitud?: <numero>,
     }
 
 #### partidos en los que participa
@@ -88,12 +97,12 @@ retorna una lista de partidos donde participa
         cantidad_partidos: <numero>
         partidos: [...{
             id: <number>,
-            creador_id: <number>,
             nombre: <string>,
-            deporte: <string>,
-            hora_inicio: <datetime>,
-            direccion: <string>|null,
-            ubicacion: { lat: <number>, lng: <number>},
+            fecha: <datetime>,
+            estado: <string>,
+            creador_id: <string>,
+            deporte_id: <string>,
+            cancha_id: <string>,
         }...]
     }
 
@@ -111,12 +120,12 @@ retorna una lista de partidos
         cantidad_partidos: <numero>
         partidos: [...{
             id: <number>,
-            creador_id: <number>,
             nombre: <string>,
-            deporte: <string>,
-            hora_inicio: <datetime>,
-            direccion: <string>,
-            ubicacion: { lat: <number>, lng: <number>},
+            fecha: <datetime>,
+            estado: <string>,
+            creador_id: <string>,
+            deporte_id: <string>,
+            cancha_id: <string>,
         }...]
     }
 
@@ -131,12 +140,12 @@ si existe, retorna la información de ese partido
 
     {
         id: <number>,
-        creador_id: <number>,
         nombre: <string>,
-        deporte: <string>,
-        hora_inicio: <datetime>,
-        direccion: <string>,
-        ubicacion: { lat: <number>, lng: <number>},
+        fecha: <datetime>,
+        estado: <string>,
+        creador_id: <string>,
+        deporte_id: <string>,
+        cancha_id: <string>,
     }
 
 #### Crear partido
@@ -148,24 +157,23 @@ crea un partido y retorna su información
 ##### request body
 
     {
-        usuario_id: <number>,
         nombre: <string>,
-        deporte: <string>,
-        hora_inicio: <datetime>,
-        direccion: <string>,
-        ubicacion: { lat: <number>, lng: <number>},
+        fecha: <datetime>,
+        creador_id: <string>,
+        deporte_id: <string>,
+        cancha_id: <string>,
     }
 
 ##### response body
 
     {
         id: <number>,
-        creador_id: <number>,
         nombre: <string>,
-        deporte: <string>,
-        hora_inicio: <datetime>,
-        direccion: <string>,
-        ubicacion: { lat: <number>, lng: <number>},
+        fecha: <datetime>,
+        estado: <string>,
+        creador_id: <string>,
+        deporte_id: <string>,
+        cancha_id: <string>,
     }
 
 

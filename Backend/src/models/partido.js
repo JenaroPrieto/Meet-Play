@@ -14,6 +14,22 @@ module.exports = (sequelize, DataTypes) => {
       Partido.belongsTo(models.Usuario, {
         as: 'creador',
         foreignKey: 'creador_id',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
+      });
+      // Canchas
+      Partido.belongsTo(models.Cancha, {
+        as: 'cancha',
+        foreignKey: 'cancha_id',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
+      });
+      // Deportes
+      Partido.belongsTo(models.Deporte, {
+        as: 'deporte',
+        foreignKey: 'deporte_id',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
       });
       // participantes
       Partido.belongsToMany(models.Usuario, {
@@ -22,18 +38,37 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'partido_id',
         otherKey: 'usuario_id'
       });
+      // Chats
+      Partido.hasMany(models.Chat, {
+        as: 'chats',
+        foreignKey: 'partido_id',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
     }
   }
   Partido.init({
-    nombre: DataTypes.STRING,
-    deporte: DataTypes.STRING,
-    hora_inicio: DataTypes.DATE,
-    direccion: DataTypes.STRING,
-    lat: DataTypes.DOUBLE,
-    lng: DataTypes.DOUBLE
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    nombre: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+    fecha: {
+      type: DataTypes.DATE,
+    },
+    estado: {
+      type: DataTypes.ENUM,
+      values: ['abierto', 'cerrado'],
+      defaultValue: 'abierto',
+    },
   }, {
-    sequelize,
-    modelName: 'Partido',
-  });
+      sequelize,
+      modelName: 'Partido',
+      timestamps: false,
+    });
   return Partido;
 };
