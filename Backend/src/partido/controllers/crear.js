@@ -6,7 +6,7 @@ const partido_crear = async (ctx) => {
     deporte_id,
     cancha_id,
   } =  ctx.request.body;
-  const game = await ctx.orm.Partido.create({
+  const partido = await ctx.orm.Partido.create({
     creador_id,
     nombre,
     deporte_id,

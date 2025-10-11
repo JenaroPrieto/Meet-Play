@@ -45,6 +45,11 @@ crea un nuevo usuario y retorn su información
     
     {
         nombre: <string>,
+        email: <string>,
+        contrasena: <string>,
+        direccion: <string>,
+        latitud: <numero>,
+        longitud: <numero>
     }
 
 ##### response body
