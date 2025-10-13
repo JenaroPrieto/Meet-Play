@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function CreateMatch() {
   const [deporte, setDeporte] = useState('');
@@ -9,40 +10,65 @@ export default function CreateMatch() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // Simulación: “guardar” en memoria / mostrar confirmación
     setMensaje(`✅ Partido creado: ${deporte} en ${ubicacion} el ${fecha} a las ${hora}`);
-    // opcional: podrías guardar en localStorage si quieres persistir al refrescar
-    setDeporte(''); setUbicacion(''); setFecha(''); setHora('');
+    setDeporte('');
+    setUbicacion('');
+    setFecha('');
+    setHora('');
   }
 
   return (
-    <div style={{ padding: 16, maxWidth: 420 }}>
-      <h2>Crear partido (demo)</h2>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: 8 }}>
-          <label>Deporte<br/>
-            <input value={deporte} onChange={e=>setDeporte(e.target.value)} required />
-          </label>
-        </div>
-        <div style={{ marginBottom: 8 }}>
-          <label>Ubicación<br/>
-            <input value={ubicacion} onChange={e=>setUbicacion(e.target.value)} required />
-          </label>
-        </div>
-        <div style={{ marginBottom: 8 }}>
-          <label>Fecha<br/>
-            <input type="date" value={fecha} onChange={e=>setFecha(e.target.value)} required />
-          </label>
-        </div>
-        <div style={{ marginBottom: 12 }}>
-          <label>Hora<br/>
-            <input type="time" value={hora} onChange={e=>setHora(e.target.value)} required />
-          </label>
-        </div>
-        <button type="submit">Crear partido</button>
-      </form>
+    <div className="page-center">
+      <div className="card">
+        <h2>Crear Partido</h2>
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: 12 }}>
+            <label>Deporte</label>
+            <input
+              value={deporte}
+              onChange={(e) => setDeporte(e.target.value)}
+              placeholder="Ej: Fútbol"
+              required
+            />
+          </div>
+          <div style={{ marginBottom: 12 }}>
+            <label>Ubicación</label>
+            <input
+              value={ubicacion}
+              onChange={(e) => setUbicacion(e.target.value)}
+              placeholder="Ej: Estadio Nacional"
+              required
+            />
+          </div>
+          <div style={{ marginBottom: 12 }}>
+            <label>Fecha</label>
+            <input
+              type="date"
+              value={fecha}
+              onChange={(e) => setFecha(e.target.value)}
+              required
+            />
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <label>Hora</label>
+            <input
+              type="time"
+              value={hora}
+              onChange={(e) => setHora(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">Crear partido</button>
+        </form>
 
-      {mensaje && <p style={{ marginTop: 12 }}>{mensaje}</p>}
+        {mensaje && <p style={{ marginTop: 16 }}>{mensaje}</p>}
+      </div>
+
+      <div className="back-home">
+        <Link to="/">← Volver al inicio</Link>
+      </div>
     </div>
   );
 }
+
+

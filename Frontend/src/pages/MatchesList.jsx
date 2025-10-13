@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const PARTIDOS_MOCK = [
   {
@@ -28,8 +29,8 @@ export default function MatchesList() {
   const [msg, setMsg] = useState('');
 
   function unirse(id) {
-    setPartidos(prev =>
-      prev.map(p =>
+    setPartidos((prev) =>
+      prev.map((p) =>
         p.id === id && p.inscritos < p.cupos
           ? { ...p, inscritos: p.inscritos + 1 }
           : p
@@ -40,29 +41,39 @@ export default function MatchesList() {
   }
 
   return (
-    <div style={{ padding: 16 }}>
-      <h2>Partidos disponibles (demo)</h2>
-      {msg && <p>{msg}</p>}
-      {partidos.length === 0 && <p>No hay partidos todavía.</p>}
+    <div className="page-center">
+      <div style={{ width: '100%', maxWidth: '900px', textAlign: 'center' }}>
+        <h2>Partidos Disponibles</h2>
+        {msg && <p>{msg}</p>}
+        {partidos.length === 0 && <p>No hay partidos todavía.</p>}
 
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {partidos.map(p => (
-          <li key={p.id} style={{ border: '1px solid #ddd', marginBottom: 8, padding: 8 }}>
-            <div><b>{p.nombre}</b></div>
-            <div><b>Deporte:</b> {p.deporte}</div>
-            <div><b>Fecha:</b> {p.fecha} — <b>Hora:</b> {p.hora}</div>
-            <div><b>Dirección:</b> {p.direccion}</div>
-            <div><b>Cupos:</b> {p.inscritos}/{p.cupos}</div>
-            <button
-              onClick={() => unirse(p.id)}
-              disabled={p.inscritos >= p.cupos}
-              style={{ marginTop: 6 }}
-            >
-              {p.inscritos >= p.cupos ? 'Completo' : 'Unirse'}
-            </button>
-          </li>
-        ))}
-      </ul>
+        <div className="matches-container">
+          {partidos.map((p) => (
+            <div key={p.id} className="match-card">
+              <div className="match-title">{p.nombre}</div>
+              <div className="match-meta">
+                <strong>Deporte:</strong> {p.deporte}<br />
+                <strong>Fecha:</strong> {p.fecha}<br />
+                <strong>Hora:</strong> {p.hora}<br />
+                <strong>Dirección:</strong> {p.direccion}<br />
+                <strong>Cupos:</strong> {p.inscritos}/{p.cupos}
+              </div>
+              <button
+                onClick={() => unirse(p.id)}
+                disabled={p.inscritos >= p.cupos}
+              >
+                {p.inscritos >= p.cupos ? 'Completo' : 'Unirse'}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="back-home">
+        <Link to="/">← Volver al inicio</Link>
+      </div>
     </div>
   );
 }
+
+
