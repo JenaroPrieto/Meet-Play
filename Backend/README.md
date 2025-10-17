@@ -35,6 +35,37 @@ inicia el servicio en modo desarrollo
 
 ### usuario
 
+#### login
+
+    POST /usuario/login
+
+en caso de no encontrar el email o contraseña invalida
+retorna codigo de status 401
+
+##### request body
+    
+    {
+        email: <string>,
+        contrasena: <string>,
+    }
+
+##### response body
+
+    {
+        user: {
+            id: <numero>,
+            nombre: <nombre>,
+            email: <string>,
+            fecha_registro: <DateTime>,
+            foto_perfil: <string>,
+            direccion: <string>,
+            latitud: <numero>,
+            longitud: <numero>
+        }
+        token: <string>
+    }
+
+
 #### nuevo usuario
 
     POST /usuario/crear
@@ -55,14 +86,17 @@ crea un nuevo usuario y retorn su información
 ##### response body
 
     {
-        id: <numero>,
-        nombre: <nombre>,
-        email: <string>,
-        fecha_registro: <DateTime>,
-        foto_perfil: <string>,
-        direccion: <string>,
-        latitud: <numero>,
-        longitud: <numero>,
+        user: {
+            id: <numero>,
+            nombre: <nombre>,
+            email: <string>,
+            fecha_registro: <DateTime>,
+            foto_perfil: <string>,
+            direccion: <string>,
+            latitud: <numero>,
+            longitud: <numero>
+        }
+        token: <string>
     }
 
 #### buscar usuario

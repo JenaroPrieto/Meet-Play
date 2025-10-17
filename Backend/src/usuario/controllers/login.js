@@ -1,26 +1,23 @@
-const { hash_password } = require('../../utils/password');
+const { compare_password } = require('../../utils/password');
 const { sign_token } = require('../../utils/token');
 
-const usuario_crear = async (ctx) => {
-  let {
-    nombre,
+const usuario_login = async (ctx) => {
+  const {
     email,
     contrasena,
-    direccion,
-    latitud,
-    longitud,
   } = ctx.request.body;
 
-  contrasena = hash_password(contrasena);
-
-  const user = await ctx.orm.Usuario.create({
-    nombre,
-    email,
-    contrasena,
-    direccion,
-    latitud,
-    longitud,
+  const user = await ctx.orm.Usuario.findOne({
+    where: { email },
   });
+
+  if (!user) {
+    ctx.throw(401, 'Invalid email or password');
+  }
+
+  if (!compare_password(contrasena, user.contrasena)) {
+    ctx.throw(401, 'Invalid email or password');
+  }
 
 
   ctx.body = {
@@ -39,5 +36,5 @@ const usuario_crear = async (ctx) => {
 };
 
 module.exports = {
-  usuario_crear,
+  usuario_login,
 };
