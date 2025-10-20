@@ -152,8 +152,8 @@ retorna una lista de partidos
 
 si se encuentra el token de authorización, en la 
 respuesta se incluira si participa el usuario en el 
-partido y la distancia de la ubicacion del usuario 
-a las canchas.
+partido y la distancia en kilometros de la ubicacion
+del usuario a las canchas.
 
 ##### query params
 
@@ -226,7 +226,7 @@ crea un partido y retorna su información
         fecha: <datetime>,
         creador_id: <string>,
         deporte_id: <string>,
-        cancha_id: <string>,
+        cancha_id: <string>
     }
 
 ##### response body
@@ -238,7 +238,7 @@ crea un partido y retorna su información
         estado: <string>,
         creador_id: <string>,
         deporte_id: <string>,
-        cancha_id: <string>,
+        cancha_id: <string>
     }
 
 
@@ -248,14 +248,13 @@ crea un partido y retorna su información
 
 Ingresa al usuario para ser parte del partido
 
-##### request body
+##### header param
 
-    {
-        usuario_id: <number>,
-    }
+el token de authorización es necesario
 
 ##### request body
 
     {
-        exito: true|false
+        exito: true|false,
+        message: <string>
     }

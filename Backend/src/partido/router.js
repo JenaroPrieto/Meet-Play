@@ -19,6 +19,6 @@ router.get('/:id', partido_buscar_id);
 
 router.post('/crear', validate_json, partido_crear);
 
-router.post('/:id/unirse', validate_json, partido_unirse);
+router.post('/:id/unirse', partido_unirse);
 
 module.exports = router;

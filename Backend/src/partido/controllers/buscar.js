@@ -8,7 +8,6 @@ const partido_all = async (ctx) => {
   try {
     user = await get_user(ctx);
   } catch (error) {
-    console.log(error);
     if (!(error === ctx.state.jwtOriginalError)){
       throw error;
     }
