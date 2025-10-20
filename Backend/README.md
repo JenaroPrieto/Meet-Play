@@ -148,10 +148,25 @@ retorna una lista de partidos donde participa
 
 retorna una lista de partidos
 
+##### header params
+
+si se encuentra el token de authorización, en la 
+respuesta se incluira si participa el usuario en el 
+partido y la distancia en kilometros de la ubicacion
+del usuario a las canchas.
+
+##### query params
+
+- estado = <abierto|cerrado|todos> default: abierto
+- incluir_pasados = <true|false> default: false
+- offset = <number> default: 0
+- limit = <number> default: 10
+
 ##### response body
 
     {
-        cantidad_partidos: <numero>
+        cantidad_partidos: <numero>,
+        cantidad_partidos_total: <numero>,
         partidos: [...{
             id: <number>,
             nombre: <string>,
@@ -160,6 +175,22 @@ retorna una lista de partidos
             creador_id: <string>,
             deporte_id: <string>,
             cancha_id: <string>,
+            participantes: <number>,
+            usuario_participa:? <bool>,
+        }...],
+        deportes: [...{
+                id: <number>,
+                nombre: <string>,
+                max_participantes: <number>
+        }...],
+        canchas: [...{
+                id: <number>,
+                nombre: <string>,
+                direccion: <string>,
+                comuna: <string>,
+                latitud: <number>,
+                longitud: <number>
+                distancia:? <number>
         }...]
     }
 
@@ -195,7 +226,7 @@ crea un partido y retorna su información
         fecha: <datetime>,
         creador_id: <string>,
         deporte_id: <string>,
-        cancha_id: <string>,
+        cancha_id: <string>
     }
 
 ##### response body
@@ -207,7 +238,7 @@ crea un partido y retorna su información
         estado: <string>,
         creador_id: <string>,
         deporte_id: <string>,
-        cancha_id: <string>,
+        cancha_id: <string>
     }
 
 
@@ -217,14 +248,13 @@ crea un partido y retorna su información
 
 Ingresa al usuario para ser parte del partido
 
-##### request body
+##### header param
 
-    {
-        usuario_id: <number>,
-    }
+el token de authorización es necesario
 
 ##### request body
 
     {
-        exito: true|false
+        exito: true|false,
+        message: <string>
     }
