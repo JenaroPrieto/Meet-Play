@@ -1,4 +1,5 @@
 const { get_user } = require('../../utils/session');
+const { distance } = require('../../utils/great_circle_distance');
 
 const partido_all = async (ctx) => {
 
@@ -117,7 +118,8 @@ const partido_all = async (ctx) => {
         direccion: cancha.direccion,
         comuna: cancha.comuna,
         latitud: cancha.latitud,
-        longitud: cancha.longitud
+        longitud: cancha.longitud,
+        distancia: user ? distance(user.latitud, cancha.latitud, user.longitud, cancha.longitud) : undefined,
       };
     }),
   }
