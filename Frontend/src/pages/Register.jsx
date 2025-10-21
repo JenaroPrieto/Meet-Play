@@ -32,7 +32,7 @@ export default function Register() {
       if (res.ok) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/partidos"); // redirige al home o lista de partidos
+        navigate("/partidos");
       } else {
         setError(data.message || "Error al registrarse");
       }
@@ -104,4 +104,5 @@ export default function Register() {
     </div>
   );
 }
+
 

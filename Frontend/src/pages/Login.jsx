@@ -20,11 +20,14 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
+        // Guarda token y usuario en localStorage
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/partidos"); // redirige después del login
+
+        // Redirige a la página de partidos
+        navigate("/partidos");
       } else {
-        setError(data.message || "Credenciales incorrectas");
+        setError(data.message || "Email o contraseña incorrectos");
       }
     } catch (err) {
       setError("Error al conectar con el servidor");
@@ -42,7 +45,6 @@ export default function Login() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-
         <input
           type="password"
           placeholder="Contraseña"
@@ -50,7 +52,6 @@ export default function Login() {
           onChange={(e) => setContrasena(e.target.value)}
           required
         />
-
         <button type="submit">Ingresar</button>
       </form>
 
