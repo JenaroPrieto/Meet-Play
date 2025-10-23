@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const { bodyParser } = require('@koa/bodyparser');
 const jwt = require('koa-jwt');
+const cors = require('@koa/cors');
 
 const router = require('./routes');
 const models = require('./models');
@@ -9,6 +10,8 @@ const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'secreto-jwt';
 
 const app = new Koa();
+
+app.use(cors());
 
 // Es responsabilidad de middlewares inferiores de revisar
 // si un token valido fue otorgado. Si ctx.state.user esta definido.
