@@ -1,302 +1,299 @@
-/* ======== VARIABLES GLOBALES ======== */
+/* =======================
+   Meet & Play — Diseño base
+   ======================= */
+
+/* ---------- TOKENS (variables) ---------- */
 :root {
+  /* Layout */
   --nav-h: 72px;
+  --container-w: 1200px;
+
+  /* Paleta base (azules + verdes deportivos) */
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --green-500: #22c55e;
+  --red-500: #ef4444;
+
+  /* Tokens semánticos */
   --brand-bg: rgba(10, 37, 64, 0.88);
   --brand-txt: #ffffff;
-  --primary: #3b82f6;       /* azul suave */
-  --primary-hover: #2563eb;
-  --card-solid: rgba(15, 23, 42, 0.85); /* fondo sólido azul-gris oscuro */
-  --border-glass: rgba(255, 255, 255, 0.25);
-  --glass-blur: blur(10px);
+  --primary: var(--blue-500);
+  --primary-hover: var(--blue-600);
+  --surface: rgba(15, 23, 42, 0.85);     /* cards y paneles */
+  --surface-strong: rgba(11, 18, 32, 0.92);
+  --text: #ffffff;
+  --text-muted: #e6ebf5;
+  --border: rgba(255, 255, 255, 0.18);
+
+  /* Estados */
+  --success: var(--green-500);
+  --danger: var(--red-500);
+  --warning: #f59e0b;
+
+  /* Forma/espaciado/sombras */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 20px;
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+  --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-7: 32px;
+  --shadow-1: 0 8px 28px rgba(0,0,0,.35);
+  --shadow-2: 0 10px 30px rgba(0,0,0,.40);
+
+  --focus-ring: 3px solid rgba(59,130,246,.9);
 }
 
-/* ======== RESET Y BASE ======== */
-* {
-  box-sizing: border-box;
-}
-
-html, body, #root {
-  height: 100%;
-}
+/* ---------- RESET / BASE ---------- */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
 
 body {
   margin: 0;
+  /* Capa oscura (ajusta 0.35 para más/menos opacidad) + imagen de fondo */
+  background:
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url('/foto_deporte.jpg') center / cover fixed no-repeat;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
-  color: #fff;
-  background-image: url("/Background_Pasto.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  color: var(--text);
 }
 
-/* Capa oscura sutil para contraste de texto */
+
+
+
+/* Capa oscura para contraste de texto */
 body::before {
   content: "";
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.25);
-  pointer-events: none;
-  z-index: -1;
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at 60% 10%, rgba(0,0,0,0.15), transparent 40%),
+              rgba(0,0,0,.28);
+  pointer-events: none; z-index: -1;
 }
 
-/* ======== NAVBAR ======== */
-.navbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: var(--nav-h);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  background: var(--brand-bg);
-  color: var(--brand-txt);
-  z-index: 1000;
-  backdrop-filter: blur(8px);
-}
+/* Contenedor genérico */
+.container { width: 100%; max-width: var(--container-w); margin: 0 auto; padding: 0 var(--space-4); }
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.nav-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-.brand {
-  font-weight: 700;
-  font-size: 1.2rem;
-}
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.nav-link {
-  color: #e5efff;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 8px 10px;
-  border-radius: 8px;
-  transition: background 0.3s;
-}
-
-.nav-link:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.nav-link.active {
-  background: rgba(59, 130, 246, 0.25);
-}
+/* Focus accesible */
+:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+:where(button, input, select, a) { font: inherit; }
 
 /* Evitar que el contenido quede debajo del navbar fijo */
-.page-wrapper {
-  padding-top: calc(var(--nav-h) + 16px);
+.page-wrapper { padding-top: calc(var(--nav-h) + 16px); }
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+  position: fixed; inset: 0 0 auto 0; height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--space-4);
+  background: var(--brand-bg); color: var(--brand-txt);
+  z-index: 1000; backdrop-filter: blur(8px);
 }
 
-/* ======== LANDING ======== */
+.nav-left { display: flex; align-items: center; gap: 10px; }
+.nav-logo { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
+.brand { font-weight: 700; font-size: 1.2rem; }
+
+.nav-right { display: flex; align-items: center; gap: 6px; }
+.nav-link {
+  color: #e5efff; text-decoration: none; font-weight: 700;
+  padding: 10px 12px; border-radius: 10px; line-height: 1;
+  transition: background .2s, color .2s;
+}
+.nav-link:hover { background: rgba(255,255,255,.12); }
+.nav-link.active {
+  background: rgba(59,130,246,.22);
+  box-shadow: inset 0 -2px 0 var(--blue-600);
+}
+.nav-user { opacity: .95; padding: 0 6px; }
+.logout-btn { margin-left: 6px; }
+
+/* ---------- LANDING ---------- */
 .landing {
   min-height: calc(100vh - var(--nav-h));
-  display: grid;
-  place-items: center;
-  padding: 24px;
+  display: grid; place-items: center;
+  padding: var(--space-6);
 }
 
 .landing-card {
-  max-width: 860px;
-  width: 100%;
+  max-width: 860px; width: 100%;
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 48px 36px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 48px 36px; text-align: center;
+  box-shadow: var(--shadow-2);
 }
-
 .landing-card h1 {
   margin: 0 0 10px;
   font-size: clamp(2rem, 4vw, 3.2rem);
 }
-
 .landing-card p {
   margin: 0 0 24px;
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  color: #e6ebf5;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--text-muted);
 }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 
-.cta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-}
-
+/* ---------- BOTONES ---------- */
 .btn {
-  display: inline-block;
-  padding: 12px 18px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 16px; border-radius: 12px; border: 0; cursor: pointer;
+  font-weight: 800; text-decoration: none;
+  transition: transform .15s, background .2s, opacity .2s;
 }
+.btn:hover:not(:disabled) { transform: translateY(-1px); }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
 
-.btn-primary {
-  background: var(--primary);
-  color: #fff;
-}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-secondary { background: rgba(255,255,255,.14); color: #fff; }
+.btn-secondary:hover { background: rgba(255,255,255,.22); }
+.btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.18); }
+.btn-ghost:hover { background: rgba(255,255,255,.08); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn--sm { padding: 8px 12px; border-radius: 10px; font-size: .95rem; }
+.btn--lg { padding: 14px 18px; border-radius: 14px; font-size: 1.05rem; }
 
-.btn-primary:hover {
-  background: var(--primary-hover);
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.14);
-  color: #fff;
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.22);
-  transform: translateY(-2px);
-}
-
-/* ======== PÁGINAS INTERNAS ======== */
+/* ---------- PÁGINAS INTERNAS GENERALES ---------- */
 .page-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  display: flex; justify-content: center; align-items: center; flex-direction: column;
   min-height: calc(100vh - var(--nav-h));
-  padding: 24px;
+  padding: var(--space-6);
 }
 
 .card {
-  background: var(--card-solid);
-  border: 1.5px solid var(--border-glass);
-  border-radius: 18px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
   padding: 36px 48px;
-  max-width: 480px;
-  width: 100%;
-  color: #f1f1f1;
-  text-align: center;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+  max-width: 520px; width: 100%;
+  color: #f1f1f1; text-align: left;
+  box-shadow: var(--shadow-1);
+}
+.card h2 { margin: 0 0 16px; }
+
+/* ---------- FORMULARIOS BONITOS (GENÉRICOS) ---------- */
+form { display: grid; gap: 12px; }
+
+form label {
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--text);
+  display: block;
 }
 
-.card h2 {
-  margin-bottom: 20px;
-}
-
-/* Inputs y botones */
-form input,
-form select {
+form :where(input, select) {
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: none;
-  margin-top: 4px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0);
+  margin-top: 6px;
   font-size: 1rem;
-  background: rgba(255, 255, 255, 0.85);
+  color: #0f172a;
+  background: rgba(255,255,255,.92);
+  transition: box-shadow .15s, transform .1s;
+}
+form input::placeholder { color: #64748b; }
+form input:focus, form select:focus {
+  outline: var(--focus-ring);
+  box-shadow: 0 0 0 3px rgba(59,130,246,.25);
 }
 
-form input:focus {
-  outline: 2px solid var(--primary);
-}
-
+/* Botón de formularios por defecto */
 button {
   background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 16px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
+  color: white; border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 1rem; font-weight: 800;
+  cursor: pointer; transition: background .2s, transform .15s, opacity .2s;
+}
+button:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-1px); }
+button:disabled { opacity: .6; cursor: not-allowed; }
+
+/* ---------- ALERTS / ERRORES ---------- */
+.alert {
+  display: grid; align-items: center; gap: 8px;
+  padding: 12px 14px; border-radius: 12px; font-weight: 700; width: 100%;
+  border: 1px solid rgba(255,255,255,.18);
+}
+.alert--success { background: rgba(34,197,94,.18); color: #dcfce7; }
+.alert--error   { background: rgba(239,68,68,.20); color: #fee2e2; }
+
+.error { /* para <p class="error"> de Login/Register */
+  margin-top: 10px;
+  background: rgba(239,68,68,.18);
+  color: #fee2e2;
+  border: 1px solid rgba(239,68,68,.35);
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-weight: 700;
 }
 
-button:hover:not(:disabled) {
-  background: var(--primary-hover);
-  transform: translateY(-1px);
-}
-
-button:disabled {
-  background: gray;
-  cursor: not-allowed;
-}
-
-/* ======== MATCHES LIST ======== */
-.matches-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+/* ---------- AUTH (Login / Register) ---------- */
+/* Sin tocar JSX: convertimos el contenedor en una tarjeta centrada */
+.auth-container {
   width: 100%;
-  max-width: 800px;
-  margin: 0 auto 32px;
+  max-width: 520px;
+  margin: 64px auto;                /* centrado horizontal + separación superior */
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-1);
+  text-align: left;
 }
+.auth-container h2 { margin: 0 0 16px; }
+.auth-container form { margin-top: 8px; }
+.auth-container button { width: 100%; margin-top: 6px; }
+.auth-container p { margin-top: 12px; color: var(--text-muted); }
+.auth-container a.nav-link { color: #fff; font-weight: 800; text-decoration: none; }
+.auth-container a.nav-link:hover { text-decoration: underline; }
 
+/* ---------- LISTA DE PARTIDOS ---------- */
+.matches-container {
+  display: flex; flex-direction: column; gap: 20px;
+  width: 100%; max-width: 900px; margin: 0 auto 32px;
+}
 .match-card {
-  background: var(--card-solid); /* igual que crear partido */
-  border: 1px solid var(--border-glass);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 24px 32px;
-  color: #f3f4f6;
-  text-align: center;
-  transition: transform 0.25s, box-shadow 0.3s;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  color: #f3f4f6; text-align: left;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: var(--shadow-1);
 }
+.match-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+.match-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; color: #fff; }
+.match-meta { font-size: 1rem; line-height: 1.6; color: #e5e7eb; }
+.match-card button { margin-top: 14px; }
 
-.match-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-}
-
-.match-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: #fff;
-}
-
-.match-meta {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #e5e7eb;
-}
-
-.match-card button {
-  margin-top: 14px;
-}
-
-/* ======== BOTÓN VOLVER AL INICIO ======== */
-.back-home {
-  margin-top: 28px;
-  text-align: center;
-}
-
+/* ---------- BOTÓN VOLVER AL INICIO ---------- */
+.back-home { margin-top: 28px; text-align: center; }
 .back-home a {
   display: inline-block;
-  background: var(--card-solid); /* mismo fondo sólido */
-  padding: 10px 18px;
-  border-radius: 10px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 0.3s, transform 0.2s;
+  background: var(--surface);
+  padding: 10px 18px; border-radius: 12px;
+  color: #fff; text-decoration: none; font-weight: 800;
+  transition: background .2s, transform .15s;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
 }
+.back-home a:hover { background: var(--surface-strong); transform: translateY(-1px); }
 
-.back-home a:hover {
-  background: rgba(15, 23, 42, 0.95);
-  transform: translateY(-1px);
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 640px) {
+  .landing-card { padding: 36px 24px; }
+  .card, .auth-container { padding: 24px 20px; }
+  .nav-right { gap: 2px; }
+  .nav-link { padding: 10px; font-weight: 700; }
 }
 
 
-
-
+/* Logo inline en el título del landing */
+.landing-card h1 .logo-inline {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 10px;
+  vertical-align: middle;            /* alinea con el texto */
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}

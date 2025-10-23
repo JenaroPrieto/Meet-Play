@@ -22,11 +22,29 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="nav-left">
-        <img src="/Logo_M&P.jpg" alt="Meet & Play" className="nav-logo" />
-        <span className="brand">Meet & Play</span>
+        {/* BOTÓN DEL LOGO → navega a "/" */}
+        <button
+          type="button"
+          className="logo-btn"
+          onClick={() => navigate("/")}
+          aria-label="Ir a la página principal"
+          style={{ background: "transparent", border: "none", padding: 0, cursor: "pointer", display: "flex", alignItems: "center", gap: "0.5rem" }}
+        >
+          <img src="/Logo_M&P.jpg" alt="Meet & Play" className="nav-logo" />
+          <span className="brand">Meet & Play</span>
+        </button>
       </div>
 
       <div className="nav-right">
+        {/* NUEVO: botón 'Principal' → "/" */}
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+        >
+          Principal
+        </NavLink>
+
         <NavLink
           to="/partidos"
           className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
@@ -60,5 +78,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-
