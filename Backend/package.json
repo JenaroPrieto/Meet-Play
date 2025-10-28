@@ -8,9 +8,22 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
     "test": "jest"
   },
   "dependencies": {
-    "koa": "^3.0.1"
+    "@koa/bodyparser": "^6.0.0",
+    "@koa/cors": "^5.0.0",
+    "@koa/router": "^14.0.0",
+    "bcrypt": "^6.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "koa": "^3.0.1",
+    "koa-jwt": "^4.0.4",
+    "pg": "^8.16.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

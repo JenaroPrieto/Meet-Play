@@ -1,14 +1,25 @@
-import { BrowserRouter, Routes, Route } from 'react-router'
-import App from "./App"
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from "./components/Layout";
+import App from './App';
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import CreateMatch from './pages/CreateMatch';
+import MatchesList from './pages/MatchesList';
 
-function Routing(){
+function Routing() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={"/"} element={< App />}/>
+        <Route element={<Layout />}>
+          <Route path="/" element={<App />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registro" element={<Register />} />
+          <Route path="/crear" element={<CreateMatch />} />
+          <Route path="/partidos" element={<MatchesList />} />
+        </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
 export default Routing;
