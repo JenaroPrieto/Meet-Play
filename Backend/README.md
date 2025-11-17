@@ -140,6 +140,21 @@ retorna una lista de partidos donde participa
         }...]
     }
 
+#### usuarios con los comparte partido
+
+    GET /usuario/:id/met
+
+retorna los ids de los usuarios con la lista
+de partidos que comparten
+
+##### response body
+
+    {
+        usuarios: {
+            "<id usuario>": [lista id partidos]
+        }
+    }
+
 ### partido
 
 #### listar partidos
