@@ -128,7 +128,7 @@ const partido_buscar_id = async (ctx) => {
   const id = Number(ctx.params.id);
   const partido = await ctx.orm.Partido.findOne({
     where: { id }});
-  if (!game) {
+  if (!partido) {
     ctx.body = {
       id: null,
     }

@@ -256,6 +256,40 @@ crea un partido y retorna su información
         cancha_id: <string>
     }
 
+#### Actualizar partido
+
+    PUT /partido/:id/update
+
+actualiza un partido y retorna su información
+
+es necesario que se mande el token de session y que
+este sea del dueño del partido.
+
+##### request body
+
+    {
+        nombre: <string>,
+        fecha: <datetime>,
+        estado: <'abierto'|'cerrado'>,
+        deporte_id: <string>,
+        cancha_id: <string>
+    }
+
+##### response body
+
+    {
+        partido: {
+            id: <number>,
+            nombre: <string>,
+            fecha: <datetime>,
+            estado: <string>,
+            creador_id: <string>,
+            deporte_id: <string>,
+            cancha_id: <string>
+        }
+    }
+
+
 
 #### unirse a partido
 

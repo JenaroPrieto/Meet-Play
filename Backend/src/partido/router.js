@@ -8,6 +8,7 @@ const {
   partido_buscar_id
 } = require('./controllers/buscar');
 const { partido_unirse } = require('./controllers/participante');
+const { partido_actualizar } = require('./controllers/actualizar');
 
 // Helper Middlewares
 const { validate_content_type } = require('../middleware/validate-content-type');
@@ -20,5 +21,7 @@ router.get('/:id', partido_buscar_id);
 router.post('/crear', validate_json, partido_crear);
 
 router.post('/:id/unirse', partido_unirse);
+
+router.put('/:id/update', validate_json, partido_actualizar);
 
 module.exports = router;
