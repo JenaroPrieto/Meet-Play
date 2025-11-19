@@ -99,6 +99,42 @@ crea un nuevo usuario y retorn su información
         token: <string>
     }
 
+#### actualizar usuario
+
+    PUT /usuario/update
+
+actualiza un usuario y retorna su información, si es exitoso
+
+los elementos del request body son opcionales, excepto cuando
+se manda una nueva_contrasena tambien tiene que estar la contrasena actual.
+
+##### request body
+    
+    {
+        nombre: <string>,
+        email: <string>,
+        contrasena: <string>,
+        nueva_contrasena: <string>,
+        direccion: <string>,
+        latitud: <numero>,
+        longitud: <numero>
+    }
+
+##### response body
+
+    {
+        user: {
+            id: <numero>,
+            nombre: <nombre>,
+            email: <string>,
+            fecha_registro: <DateTime>,
+            foto_perfil: <string>,
+            direccion: <string>,
+            latitud: <numero>,
+            longitud: <numero>
+        }
+    }
+
 #### buscar usuario
 
     GET /usuario/:id
