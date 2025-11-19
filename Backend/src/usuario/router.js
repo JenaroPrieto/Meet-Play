@@ -10,6 +10,7 @@ const {
 const { usuario_partido } = require('./controllers/partido');
 const { usuario_login } = require('./controllers/login');
 const { usuario_conocidos } = require('./controllers/users_met');
+const { usuario_actualizar } = require('./controllers/actualizar');
 
 // Helper Middlewares
 const { validate_content_type } = require('../middleware/validate-content-type');
@@ -26,5 +27,7 @@ router.post('/crear', validate_json, usuario_crear);
 router.get('/:id/partido', usuario_partido);
 
 router.get('/:id/met', usuario_conocidos);
+
+router.put('/update', validate_json, usuario_actualizar);
 
 module.exports = router;
