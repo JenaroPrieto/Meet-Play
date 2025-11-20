@@ -5,6 +5,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreateMatch from './pages/CreateMatch';
 import MatchesList from './pages/MatchesList';
+import Profile from "./pages/Profile";
+import MyMatches from "./pages/MyMatches";
+
+
 
 function Routing() {
   return (
@@ -16,6 +20,8 @@ function Routing() {
           <Route path="/registro" element={<Register />} />
           <Route path="/crear" element={<CreateMatch />} />
           <Route path="/partidos" element={<MatchesList />} />
+          <Route path="/perfil" element={<Profile />} />
+          <Route path="/mis-partidos" element={<MyMatches />} />
         </Route>
       </Routes>
     </BrowserRouter>
