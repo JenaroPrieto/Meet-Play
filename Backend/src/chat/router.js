@@ -2,7 +2,10 @@ const Router = require('@koa/router');
 const router = new Router();
 
 // Controllers
-const { match_chat_messages } = require('./controllers/chat_messages');
+const {
+  match_chat_messages,
+  send_message
+} = require('./controllers/chat_messages');
 
 
 // Middlewares
@@ -11,6 +14,7 @@ const validate_json = validate_content_type("application/json");
 
 // Routes
 router.get('/partido/:partido_id', match_chat_messages);
+router.post('/:chat_id/send', validate_json, send_message);
 
 
 module.exports = router;

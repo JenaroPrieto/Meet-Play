@@ -71,6 +71,35 @@ const match_chat_messages = async (ctx) => {
   }
 };
 
+
+const send_message = async (ctx) => {
+  let user_id;
+  try {
+    user_id = ctx.state.user.user;
+  } catch (error) {
+    ctx.throw(401, "unauthorized Access");
+  }
+  const chat_id = Number(ctx.params.chat_id);
+  const text =  ctx.request.body.contenido;
+
+  const message = await ctx.orm.Mensaje.create({
+    contenido: text,
+    usuario_id: user_id,
+    chat_id: chat_id
+  });
+
+  ctx.body = {
+    mensaje: {
+      id: message.id,
+      fecha_envio: message.fecha_envio,
+      contenido: message.contenido,
+      usuario_id: message.usuario_id,
+      chat_id: message.chat_id
+    }
+  };
+};
+
 module.exports = {
-  match_chat_messages
+  match_chat_messages,
+  send_message
 };
