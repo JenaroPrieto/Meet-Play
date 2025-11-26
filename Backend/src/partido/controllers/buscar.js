@@ -60,7 +60,7 @@ const partido_all = async (ctx) => {
   if (estado != undefined){
     where.estado = estado;
   }
-  if (incluir_pasados){
+  if (!incluir_pasados){
     where.fecha = {
       [Op.gt]: new Date(),
     }
