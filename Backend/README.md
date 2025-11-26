@@ -343,3 +343,39 @@ el token de authorización es necesario
         exito: true|false,
         message: <string>
     }
+
+### Chat
+
+#### mensajes de chat associado a un partido
+
+    GET /chat/partido/:partido_id
+
+retorna el chat asociado al partido y sus mensajes 
+
+##### header param
+
+es necesario auth de un usuario que participe en el partido
+
+##### query params
+
+- before_date = <datetime>
+- after_date = <datetime>
+
+##### request body
+
+    {
+        chat: {
+            id: <number>,
+            nombre: <string>,
+            partido_id: <number>,
+        }
+        mensajes [...
+            {
+                id: <number>,
+                fecha_envio: <datetime>,
+                contenido: <string>,
+                usuario_id: <numero>,
+                chat_id: <numero>
+            }
+        ...]
+    }
