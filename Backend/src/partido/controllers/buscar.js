@@ -60,7 +60,7 @@ const partido_all = async (ctx) => {
   if (estado != undefined){
     where.estado = estado;
   }
-  if (incluir_pasados){
+  if (!incluir_pasados){
     where.fecha = {
       [Op.gt]: new Date(),
     }
@@ -128,7 +128,7 @@ const partido_buscar_id = async (ctx) => {
   const id = Number(ctx.params.id);
   const partido = await ctx.orm.Partido.findOne({
     where: { id }});
-  if (!game) {
+  if (!partido) {
     ctx.body = {
       id: null,
     }

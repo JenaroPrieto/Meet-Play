@@ -99,6 +99,42 @@ crea un nuevo usuario y retorn su información
         token: <string>
     }
 
+#### actualizar usuario
+
+    PUT /usuario/update
+
+actualiza un usuario y retorna su información, si es exitoso
+
+los elementos del request body son opcionales, excepto cuando
+se manda una nueva_contrasena tambien tiene que estar la contrasena actual.
+
+##### request body
+    
+    {
+        nombre: <string>,
+        email: <string>,
+        contrasena: <string>,
+        nueva_contrasena: <string>,
+        direccion: <string>,
+        latitud: <numero>,
+        longitud: <numero>
+    }
+
+##### response body
+
+    {
+        user: {
+            id: <numero>,
+            nombre: <nombre>,
+            email: <string>,
+            fecha_registro: <DateTime>,
+            foto_perfil: <string>,
+            direccion: <string>,
+            latitud: <numero>,
+            longitud: <numero>
+        }
+    }
+
 #### buscar usuario
 
     GET /usuario/:id
@@ -256,6 +292,40 @@ crea un partido y retorna su información
         cancha_id: <string>
     }
 
+#### Actualizar partido
+
+    PUT /partido/:id/update
+
+actualiza un partido y retorna su información
+
+es necesario que se mande el token de session y que
+este sea del dueño del partido.
+
+##### request body
+
+    {
+        nombre: <string>,
+        fecha: <datetime>,
+        estado: <'abierto'|'cerrado'>,
+        deporte_id: <string>,
+        cancha_id: <string>
+    }
+
+##### response body
+
+    {
+        partido: {
+            id: <number>,
+            nombre: <string>,
+            fecha: <datetime>,
+            estado: <string>,
+            creador_id: <string>,
+            deporte_id: <string>,
+            cancha_id: <string>
+        }
+    }
+
+
 
 #### unirse a partido
 
@@ -267,9 +337,73 @@ Ingresa al usuario para ser parte del partido
 
 el token de authorización es necesario
 
-##### request body
+##### response body
 
     {
         exito: true|false,
         message: <string>
+    }
+
+### Chat
+
+#### mensajes de chat associado a un partido
+
+    GET /chat/partido/:partido_id
+
+retorna el chat asociado al partido y sus mensajes 
+
+##### header param
+
+es necesario auth de un usuario que participe en el partido
+
+##### query params
+
+- before_date = <datetime>
+- after_date = <datetime>
+
+##### response body
+
+    {
+        chat: {
+            id: <number>,
+            nombre: <string>,
+            partido_id: <number>,
+        }
+        mensajes [...
+            {
+                id: <number>,
+                fecha_envio: <datetime>,
+                contenido: <string>,
+                usuario_id: <numero>,
+                chat_id: <numero>
+            }
+        ...]
+    }
+
+#### enviar mensaje
+
+    POST /chat/:chat_id/send
+
+envia un mensaje
+
+##### header param
+
+es necesario un token de auth
+
+##### request body
+
+    {
+        contenido: <string>
+    }
+
+##### response body
+
+    {
+        mensaje:{
+            id: <number>,
+            fecha_envio: <datetime>,
+            contenido: <string>,
+            usuario_id: <numero>,
+            chat_id: <numero>
+        }
     }
