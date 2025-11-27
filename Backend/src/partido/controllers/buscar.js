@@ -1,5 +1,7 @@
 const { get_user } = require('../../utils/session');
 const { distance } = require('../../utils/great_circle_distance');
+const { Op } = require('sequelize');
+
 
 const partido_all = async (ctx) => {
 
