@@ -11,6 +11,7 @@ import MisAmigos from "./pages/MisAmigos";
 import MatchDetail from "./pages/MatchDetail";
 import ChatPage from './pages/ChatPages';
 import EditMatch from './pages/EditMatch';
+import PartidoMapa from "./pages/PartidoMapa";
 
 function Routing() {
   return (
@@ -28,6 +29,7 @@ function Routing() {
           <Route path="/partido/:id" element={<MatchDetail />} />
           <Route path="/chat/:partidoId" element={<ChatPage />} />
           <Route path="/partido/:id/editar" element={<EditMatch />} />
+          <Route path="/partidomapa" element={<PartidoMapa />} />
         </Route>
       </Routes>
     </BrowserRouter>
