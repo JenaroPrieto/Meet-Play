@@ -297,3 +297,255 @@ button:disabled { opacity: .6; cursor: not-allowed; }
   vertical-align: middle;            /* alinea con el texto */
   box-shadow: 0 2px 8px rgba(0,0,0,.25);
 }
+
+
+/* =======================
+   NAVBAR — Perfil minimal
+   ======================= */
+
+/* Contenedor que envuelve el botón y el menú */
+.profile-menu-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Botón principal del perfil */
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #e5efff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background .2s, border .2s;
+}
+
+.profile-btn:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+/* Iconito del usuario */
+.profile-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* Dropdown */
+.profile-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  width: 200px;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px;
+  box-shadow: var(--shadow-2);
+
+  display: grid;
+  gap: 4px;
+  animation: fadeIn .15s ease-out;
+  z-index: 1001;
+}
+
+/* Items del dropdown */
+.dropdown-item {
+  background: transparent;
+  color: #e5efff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-align: left;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  font-size: .95rem;
+  font-weight: 600;
+  transition: background .15s;
+}
+
+.dropdown-item:hover {
+  background: rgba(255,255,255,0.10);
+}
+
+.dropdown-item.logout {
+  color: #ffb3b3;
+}
+
+.dropdown-item.logout:hover {
+  background: rgba(255,255,255,0.08);
+  color: #ffd1d1;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ===============================
+   PERFIL — Diseño minimal avanzado
+   =============================== */
+
+.profile-card {
+  max-width: 700px;
+  text-align: center;
+  padding-top: 48px;
+  position: relative;
+}
+
+/* Avatar redondo */
+.profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  margin: 0 auto 16px;
+  box-shadow: var(--shadow-1);
+}
+
+/* Nombre en grande */
+.profile-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 0 24px;
+}
+
+/* Info del usuario en 2 columnas */
+.profile-info-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  text-align: left;
+  margin-top: 12px;
+}
+
+.profile-info-grid .label {
+  font-size: .85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.profile-info-grid .value {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* ======================
+   TIMELINE DE PARTIDOS
+   ====================== */
+
+.timeline {
+  display: grid;
+  gap: 18px;
+  padding-left: 8px;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 14px;
+  position: relative;
+  padding-left: 6px;
+}
+
+.timeline-item .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  margin-top: 6px;
+  box-shadow: 0 0 10px rgba(59,130,246,0.5);
+}
+
+.timeline-title {
+  font-weight: 700;
+  margin: 0;
+}
+
+.timeline-date {
+  margin: 2px 0;
+  opacity: 0.8;
+  font-size: .95rem;
+}
+
+.timeline-status {
+  opacity: 0.75;
+  font-size: .9rem;
+}
+
+/* ===============================
+   MIS PARTIDOS — Tarjetas premium
+   =============================== */
+
+.matches-list {
+  display: grid;
+  gap: 22px;
+}
+
+/* Tarjeta expandida bonita */
+.match-card-expanded {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: var(--shadow-1);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.match-card-expanded:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-2);
+}
+
+/* Header del partido */
+.match-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.match-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+/* Estado visual */
+.estado-badge {
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: .85rem;
+  text-transform: capitalize;
+}
+
+.estado-abierto {
+  background: rgba(34,197,94,.25);
+  color: #a7f3d0;
+}
+
+.estado-cerrado {
+  background: rgba(239,68,68,.25);
+  color: #fecaca;
+}
+
+/* Info del partido */
+.match-details p {
+  margin: 6px 0;
+  line-height: 1.45;
+  color: #e5e7eb;
+}

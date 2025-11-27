@@ -11,6 +11,7 @@ export default function Register() {
     latitud: "",
     longitud: "",
   });
+
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -32,6 +33,9 @@ export default function Register() {
       if (res.ok) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
+
+        window.dispatchEvent(new Event("storageUserChange")); // 🔥 navbar al instante
+
         navigate("/partidos");
       } else {
         setError(data.message || "Error al registrarse");
@@ -44,6 +48,7 @@ export default function Register() {
   return (
     <div className="auth-container">
       <h2>Registrarse</h2>
+
       <form onSubmit={handleRegister}>
         <input
           name="nombre"
@@ -52,6 +57,7 @@ export default function Register() {
           onChange={handleChange}
           required
         />
+
         <input
           name="email"
           type="email"
@@ -60,6 +66,7 @@ export default function Register() {
           onChange={handleChange}
           required
         />
+
         <input
           name="contrasena"
           type="password"
@@ -68,12 +75,14 @@ export default function Register() {
           onChange={handleChange}
           required
         />
+
         <input
           name="direccion"
           placeholder="Dirección"
           value={form.direccion}
           onChange={handleChange}
         />
+
         <input
           name="latitud"
           type="number"
@@ -82,6 +91,7 @@ export default function Register() {
           value={form.latitud}
           onChange={handleChange}
         />
+
         <input
           name="longitud"
           type="number"
@@ -90,6 +100,7 @@ export default function Register() {
           value={form.longitud}
           onChange={handleChange}
         />
+
         <button type="submit">Crear cuenta</button>
       </form>
 
@@ -104,5 +115,3 @@ export default function Register() {
     </div>
   );
 }
-
-

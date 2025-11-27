@@ -12,6 +12,9 @@ const { usuario_login } = require('./controllers/login');
 const { usuario_conocidos } = require('./controllers/users_met');
 const { usuario_actualizar } = require('./controllers/actualizar');
 
+const { usuario_actualizar } = require('./controllers/actualizar');
+
+
 // Helper Middlewares
 const { validate_content_type } = require('../middleware/validate-content-type');
 const validate_json = validate_content_type("application/json");

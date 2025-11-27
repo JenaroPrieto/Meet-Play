@@ -20,11 +20,11 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        // Guarda token y usuario en localStorage
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
 
-        // Redirige a la página de partidos
+        window.dispatchEvent(new Event("storageUserChange")); // 🔥 actualizar navbar
+
         navigate("/partidos");
       } else {
         setError(data.message || "Email o contraseña incorrectos");
@@ -37,6 +37,7 @@ export default function Login() {
   return (
     <div className="auth-container">
       <h2>Iniciar Sesión</h2>
+
       <form onSubmit={handleLogin}>
         <input
           type="email"
@@ -45,6 +46,7 @@ export default function Login() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+
         <input
           type="password"
           placeholder="Contraseña"
@@ -52,6 +54,7 @@ export default function Login() {
           onChange={(e) => setContrasena(e.target.value)}
           required
         />
+
         <button type="submit">Ingresar</button>
       </form>
 
