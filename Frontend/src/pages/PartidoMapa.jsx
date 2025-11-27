@@ -5,10 +5,10 @@ export default function PartidoMapa() {
   const [partidos, setPartidos] = useState([]);
 
   // ⭐ Coordenadas iniciales: Macul, Santiago
-  const [selectedCoords, setSelectedCoords] = useState([
-    -33.4975,
-    -70.5996
-  ]);
+  const [selectedCoords, setSelectedCoords] = useState({
+    lat: -33.4975,
+    lng: -70.5996
+  });
 
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
@@ -29,15 +29,19 @@ export default function PartidoMapa() {
 
         if (!res.ok) throw new Error("Error al cargar partidos");
 
-        const pFull = data.partidos.map((p) => ({
-          ...p,
-          deporte: data.deportes.find((d) => d.id === p.deporte_id)?.nombre,
-          canchaData: data.canchas.find((c) => c.id === p.cancha_id),
-          direccion: data.canchas.find((c) => c.id === p.cancha_id)?.direccion,
-          comuna: data.canchas.find((c) => c.id === p.cancha_id)?.comuna,
-          latitud: data.canchas.find((c) => c.id === p.cancha_id)?.latitud,
-          longitud: data.canchas.find((c) => c.id === p.cancha_id)?.longitud,
-        }));
+        const pFull = data.partidos.map((p) => {
+          const cancha = data.canchas.find((c) => c.id === p.cancha_id);
+
+          return {
+            ...p,
+            deporte: data.deportes.find((d) => d.id === p.deporte_id)?.nombre,
+            canchaData: cancha,
+            direccion: cancha?.direccion,
+            comuna: cancha?.comuna,
+            latitud: cancha ? Number(cancha.latitud) : null,
+            longitud: cancha ? Number(cancha.longitud) : null,
+          };
+        });
 
         setPartidos(pFull);
       } catch (err) {
@@ -50,7 +54,7 @@ export default function PartidoMapa() {
   }, []);
 
   // -----------------------
-  //  UNIRSE A PARTIDO
+  //  UNIRSE AL PARTIDO
   // -----------------------
   const unirse = async (id) => {
     try {
@@ -86,7 +90,6 @@ export default function PartidoMapa() {
   // -----------------------
   //      RENDER
   // -----------------------
-
   return (
     <div style={{ display: "flex", height: "100vh", width: "100%" }}>
       
@@ -101,7 +104,7 @@ export default function PartidoMapa() {
           borderRight: "1px solid #ccc",
         }}
       >
-        <h2 style={{ textAlign: "center" }}>Partidos y Mapa</h2>
+        <h2 style={{ textAlign: "center" }}>Partidos y Ubicación</h2>
 
         {msg && <p>{msg}</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
@@ -110,13 +113,13 @@ export default function PartidoMapa() {
           {partidos.map((p) => (
             <div key={p.id} className="match-card">
 
-              {/* CLICK EN ESTA ZONA → ACTUALIZA SOLO EL MAPA */}
+              {/* CLICK → mueve el mapa Y PONE PIN */}
               <div
                 onClick={() =>
-                  setSelectedCoords([
-                    p.latitud || -33.4975,
-                    p.longitud || -70.5996,
-                  ])
+                  setSelectedCoords({
+                    lat: p.latitud || -33.4975,
+                    lng: p.longitud || -70.5996,
+                  })
                 }
                 style={{ cursor: "pointer" }}
               >
@@ -133,7 +136,7 @@ export default function PartidoMapa() {
                 </div>
               </div>
 
-              {/* BOTONES → NO AFECTAN EL MAPA */}
+              {/* BOTONES */}
               <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
                 <button
                   onClick={() => unirse(p.id)}
@@ -146,7 +149,6 @@ export default function PartidoMapa() {
                     : "Unirse"}
                 </button>
 
-                {/* AHORA EL DETALLE SOLO SE ABRE CON ESTE BOTÓN */}
                 <Link to={`/partido/${p.id}`} className="nav-link">
                   Ver detalles →
                 </Link>
@@ -166,7 +168,7 @@ export default function PartidoMapa() {
           height="100%"
           loading="lazy"
           allowFullScreen
-          src={`https://www.google.com/maps/embed/v1/view?key=${GOOGLE_KEY}&center=${selectedCoords[0]},${selectedCoords[1]}&zoom=15`}
+          src={`https://www.google.com/maps/embed/v1/place?key=${GOOGLE_KEY}&q=${selectedCoords.lat},${selectedCoords.lng}&zoom=15`}
         ></iframe>
       </div>
     </div>
