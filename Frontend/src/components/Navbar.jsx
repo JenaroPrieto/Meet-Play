@@ -82,6 +82,14 @@ export default function Navbar() {
           Partidos Disponibles
         </NavLink>
 
+        {/* ⭐ NUEVO BOTÓN — MAPA */}
+        <NavLink
+          to="/partidomapa"
+          className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+        >
+          Mapa
+        </NavLink>
+
         <NavLink
           to="/crear"
           className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}

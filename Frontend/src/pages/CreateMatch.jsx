@@ -13,20 +13,40 @@ export default function CreateMatch() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState("");
 
-  // 🔹 Cargar usuario y token del localStorage
+  const [canchas, setCanchas] = useState([]);
+
+  // 🔹 Cargar usuario y token
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");
+
     if (storedUser && storedToken) {
       setUser(JSON.parse(storedUser));
       setToken(storedToken);
     } else {
-      // Si no hay sesión, redirigir al login
       navigate("/login");
     }
   }, [navigate]);
 
-  // 🔹 Enviar datos al backend
+  // 🔹 Cargar lista de canchas
+  useEffect(() => {
+    const loadCanchas = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/partido");
+        const data = await res.json();
+
+        if (res.ok && data.canchas) {
+          setCanchas(data.canchas);
+        }
+      } catch (err) {
+        console.error("Error cargando canchas:", err);
+      }
+    };
+
+    loadCanchas();
+  }, []);
+
+  // 🔹 Enviar datos
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -56,7 +76,7 @@ export default function CreateMatch() {
       const data = await res.json();
 
       if (res.ok) {
-        setMensaje(`✅ Partido creado con éxito: ${data.nombre} el ${new Date(data.fecha).toLocaleString()}`);
+        setMensaje(`✅ Partido creado con éxito: ${data.nombre}`);
         setError("");
         setNombre("");
         setDeporteId("");
@@ -77,12 +97,13 @@ export default function CreateMatch() {
         <h2>Crear Partido</h2>
 
         <form onSubmit={handleSubmit}>
+
           <div style={{ marginBottom: 12 }}>
             <label>Nombre del partido</label>
             <input
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
-              placeholder="Ej: Partido de fútbol"
+              placeholder="Ej: Pichanga nocturna"
               required
             />
           </div>
@@ -93,20 +114,25 @@ export default function CreateMatch() {
               type="number"
               value={deporteId}
               onChange={(e) => setDeporteId(e.target.value)}
-              placeholder="Ej: 1 (Fútbol), 2 (Básquetbol)..."
+              placeholder="Ej: 1 (Fútbol)"
               required
             />
           </div>
 
           <div style={{ marginBottom: 12 }}>
-            <label>ID de la cancha</label>
-            <input
-              type="number"
+            <label>Cancha</label>
+            <select
               value={canchaId}
               onChange={(e) => setCanchaId(e.target.value)}
-              placeholder="Ej: 1 (Estadio Nacional)"
               required
-            />
+            >
+              <option value="">Selecciona una cancha</option>
+              {canchas.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.nombre} — {c.comuna}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div style={{ marginBottom: 12 }}>
@@ -142,6 +168,3 @@ export default function CreateMatch() {
     </div>
   );
 }
-
-
-
