@@ -7,7 +7,7 @@ import CreateMatch from './pages/CreateMatch';
 import MatchesList from './pages/MatchesList';
 import Profile from "./pages/Profile";
 import MyMatches from "./pages/MyMatches";
-
+import MisAmigos from "./pages/MisAmigos";
 
 
 function Routing() {
@@ -22,6 +22,7 @@ function Routing() {
           <Route path="/partidos" element={<MatchesList />} />
           <Route path="/perfil" element={<Profile />} />
           <Route path="/mis-partidos" element={<MyMatches />} />
+          <Route path="/mis-amigos" element={<MisAmigos />} />
         </Route>
       </Routes>
     </BrowserRouter>
