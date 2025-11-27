@@ -22,7 +22,6 @@ export default function MatchesList() {
           throw new Error(data.message || "Error al cargar partidos");
         }
 
-        // Combinar partidos con datos de deportes y canchas
         const partidosCompletos = data.partidos.map((p) => ({
           ...p,
           deporte:
@@ -57,9 +56,7 @@ export default function MatchesList() {
 
       const res = await fetch(`http://localhost:3000/partido/${id}/unirse`, {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       const data = await res.json();
@@ -93,23 +90,36 @@ export default function MatchesList() {
         <div className="matches-container">
           {partidos.map((p) => (
             <div key={p.id} className="match-card">
-              <div className="match-title">{p.nombre}</div>
-              <div className="match-meta">
-                <strong>Deporte:</strong> {p.deporte} <br />
-                <strong>Cancha:</strong> {p.cancha} <br />
-                <strong>Dirección:</strong> {p.direccion} ({p.comuna})<br />
-                <strong>Fecha:</strong>{" "}
-                {new Date(p.fecha).toLocaleString("es-CL")} <br />
-                <strong>Participantes:</strong> {p.participantes} <br />
-                {p.distancia && (
-                  <>
-                    <strong>Distancia:</strong> {p.distancia.toFixed(1)} km
-                    <br />
-                  </>
-                )}
-                <strong>Estado:</strong> {p.estado}
-              </div>
 
+              {/* 🎯 TODA ESTA ÁREA ES CLICKEABLE */}
+              <Link
+                to={`/partido/${p.id}`}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "block",
+                  paddingBottom: "12px",
+                }}
+              >
+                <div className="match-title">{p.nombre}</div>
+
+                <div className="match-meta">
+                  <strong>Deporte:</strong> {p.deporte} <br />
+                  <strong>Cancha:</strong> {p.cancha} <br />
+                  <strong>Dirección:</strong> {p.direccion} ({p.comuna})<br />
+                  <strong>Fecha:</strong>{" "}
+                  {new Date(p.fecha).toLocaleString("es-CL")} <br />
+                  <strong>Participantes:</strong> {p.participantes} <br />
+                  {p.distancia && (
+                    <>
+                      <strong>Distancia:</strong> {p.distancia.toFixed(1)} km<br />
+                    </>
+                  )}
+                  <strong>Estado:</strong> {p.estado}
+                </div>
+              </Link>
+
+              {/* 🎯 BOTÓN UNIRSE SE MANTIENE AFUERA DEL LINK */}
               <button
                 onClick={() => unirse(p.id)}
                 disabled={p.usuario_participa || p.estado === "cerrado"}
@@ -120,6 +130,7 @@ export default function MatchesList() {
                   ? "Cerrado"
                   : "Unirse"}
               </button>
+
             </div>
           ))}
         </div>
@@ -131,6 +142,3 @@ export default function MatchesList() {
     </div>
   );
 }
-
-
-
