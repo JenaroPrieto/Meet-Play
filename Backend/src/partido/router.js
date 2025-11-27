@@ -3,6 +3,7 @@ const router = new Router();
 
 // Controllers
 const { partido_crear } = require('./controllers/crear');
+const { salirse_partido } = require('./controllers/salirse');
 const {
   partido_all,
   partido_buscar_id
@@ -21,6 +22,8 @@ router.get('/:id', partido_buscar_id);
 router.post('/crear', validate_json, partido_crear);
 
 router.post('/:id/unirse', partido_unirse);
+
+router.post('/:id/salirse', salirse_partido);
 
 router.put('/:id/update', validate_json, partido_actualizar);
 

@@ -8,6 +8,45 @@ export default function MyMatches() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // 🔹 Función para salirse del partido
+  const handleLeave = async (idPartido) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Debes iniciar sesión");
+      return;
+    }
+
+    if (!window.confirm("¿Seguro que deseas salir del partido?")) return;
+
+    try {
+      const res = await fetch(
+        `http://localhost:3000/partido/${idPartido}/salirse`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok || !data.exito) {
+        alert(data.message || "Error al salir del partido");
+        return;
+      }
+
+      alert("Has salido del partido.");
+
+      // 🔹 Filtrar el partido que ya no pertenece al usuario
+      setUserMatches((prev) => prev.filter((p) => p.id !== idPartido));
+    } catch (err) {
+      console.error(err);
+      alert("Error en el servidor");
+    }
+  };
+
+  // 🔹 Cargar datos de usuario + partidos
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const token = localStorage.getItem("token");
@@ -30,18 +69,15 @@ export default function MyMatches() {
 
         const mis = dataMy.partidos || [];
 
-        // 🔹 2. Obtener todos los partidos disponibles (para datos extendidos)
+        // 🔹 2. Obtener todos los partidos (para info extendida)
         const headers = { Authorization: `Bearer ${token}` };
-
         const resAll = await fetch("http://localhost:3000/partido", { headers });
-
-
         const dataAll = await resAll.json();
         if (!resAll.ok) throw new Error();
 
         setAllData(dataAll);
 
-        // 🔹 3. Fusionar datos
+        // 🔹 3. Fusionar información
         const partidosCompletos = mis
           .map((m) => {
             const p = dataAll.partidos.find((x) => x.id === m.id);
@@ -74,6 +110,7 @@ export default function MyMatches() {
     fetchData();
   }, [navigate]);
 
+  // 🔹 Render
   if (loading)
     return (
       <div className="page-center">
@@ -101,7 +138,6 @@ export default function MyMatches() {
           <div className="matches-list">
             {userMatches.map((p) => (
               <div key={p.id} className="match-card-expanded">
-
                 <div className="match-header">
                   <h3>{p.nombre}</h3>
                   <span className={`estado-badge estado-${p.estado}`}>
@@ -110,19 +146,29 @@ export default function MyMatches() {
                 </div>
 
                 <div className="match-details">
-                  <p><strong>Deporte:</strong> {p.deporte}</p>
-                  <p><strong>Cancha:</strong> {p.cancha}</p>
-                  <p><strong>Dirección:</strong> {p.direccion} ({p.comuna})</p>
+                  <p>
+                    <strong>Deporte:</strong> {p.deporte}
+                  </p>
+                  <p>
+                    <strong>Cancha:</strong> {p.cancha}
+                  </p>
+                  <p>
+                    <strong>Dirección:</strong> {p.direccion} ({p.comuna})
+                  </p>
 
                   <p>
                     <strong>Fecha:</strong>{" "}
                     {new Date(p.fecha).toLocaleString("es-CL")}
                   </p>
 
-                  <p><strong>Participantes:</strong> {p.participantes}</p>
+                  <p>
+                    <strong>Participantes:</strong> {p.participantes}
+                  </p>
 
                   {p.max_participantes && (
-                    <p><strong>Cupo máximo:</strong> {p.max_participantes}</p>
+                    <p>
+                      <strong>Cupo máximo:</strong> {p.max_participantes}
+                    </p>
                   )}
 
                   {p.distancia && (
@@ -131,7 +177,26 @@ export default function MyMatches() {
                     </p>
                   )}
 
-                  <p><strong>Creador ID:</strong> {p.creador_id}</p>
+                  <p>
+                    <strong>Creador ID:</strong> {p.creador_id}
+                  </p>
+
+                  {/* 🔹 BOTÓN DE SALIRSE */}
+                  <button
+                    onClick={() => handleLeave(p.id)}
+                    className="btn-leave"
+                    style={{
+                      marginTop: "10px",
+                      background: "#e74c3c",
+                      color: "white",
+                      padding: "8px 14px",
+                      borderRadius: "6px",
+                      border: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Salirse del partido
+                  </button>
                 </div>
               </div>
             ))}
@@ -141,3 +206,4 @@ export default function MyMatches() {
     </div>
   );
 }
+
