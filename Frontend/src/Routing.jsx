@@ -8,7 +8,8 @@ import MatchesList from './pages/MatchesList';
 import Profile from "./pages/Profile";
 import MyMatches from "./pages/MyMatches";
 import MisAmigos from "./pages/MisAmigos";
-
+import MatchDetail from "./pages/MatchDetail";
+import ChatPage from './pages/ChatPages';
 
 function Routing() {
   return (
@@ -23,6 +24,8 @@ function Routing() {
           <Route path="/perfil" element={<Profile />} />
           <Route path="/mis-partidos" element={<MyMatches />} />
           <Route path="/mis-amigos" element={<MisAmigos />} />
+          <Route path="/partido/:id" element={<MatchDetail />} />
+          <Route path="/chat/:partidoId" element={<ChatPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
